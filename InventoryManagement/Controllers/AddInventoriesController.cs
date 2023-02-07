@@ -105,7 +105,6 @@ namespace InventoryManagement.Controllers
             }
 
             _context.AddInventories.Remove(addInventory);
-            _context.AddInventories.Add(addInventory);
             Material Material = await _context.Materials.Where(x => x.MaterialId == addInventory.MaterialId).FirstOrDefaultAsync();
             Material.Quantity -= addInventory.Quantity;
             _context.Materials.Update(Material);

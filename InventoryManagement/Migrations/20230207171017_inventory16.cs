@@ -7,8 +7,8 @@ namespace InventoryManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Dispatches_Users_DispatchedToId",
-                table: "Dispatches");
+                name: "FK_MaterialIssuees_Users_MaterialIssueedToId",
+                table: "MaterialIssuees");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_HsdIndents_Users_OrderedbyId",
@@ -42,14 +42,14 @@ namespace InventoryManagement.Migrations
                 newName: "IX_Returns_ReturnedbyUserId");
 
             migrationBuilder.RenameColumn(
-                name: "DispatchedToId",
-                table: "Dispatches",
-                newName: "DispatchedToUserId");
+                name: "MaterialIssueedToId",
+                table: "MaterialIssuees",
+                newName: "MaterialIssueedToUserId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Dispatches_DispatchedToId",
-                table: "Dispatches",
-                newName: "IX_Dispatches_DispatchedToUserId");
+                name: "IX_MaterialIssuees_MaterialIssueedToId",
+                table: "MaterialIssuees",
+                newName: "IX_MaterialIssuees_MaterialIssueedToUserId");
 
             migrationBuilder.AddColumn<string>(
                 name: "Username",
@@ -77,9 +77,9 @@ namespace InventoryManagement.Migrations
                 });
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Dispatches_Users_DispatchedToUserId",
-                table: "Dispatches",
-                column: "DispatchedToUserId",
+                name: "FK_MaterialIssuees_Users_MaterialIssueedToUserId",
+                table: "MaterialIssuees",
+                column: "MaterialIssueedToUserId",
                 principalTable: "Users",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Restrict);
@@ -96,8 +96,8 @@ namespace InventoryManagement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Dispatches_Users_DispatchedToUserId",
-                table: "Dispatches");
+                name: "FK_MaterialIssuees_Users_MaterialIssueedToUserId",
+                table: "MaterialIssuees");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Returns_Users_ReturnedbyUserId",
@@ -126,14 +126,14 @@ namespace InventoryManagement.Migrations
                 newName: "IX_Returns_ReturnedbyId");
 
             migrationBuilder.RenameColumn(
-                name: "DispatchedToUserId",
-                table: "Dispatches",
-                newName: "DispatchedToId");
+                name: "MaterialIssueedToUserId",
+                table: "MaterialIssuees",
+                newName: "MaterialIssueedToId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Dispatches_DispatchedToUserId",
-                table: "Dispatches",
-                newName: "IX_Dispatches_DispatchedToId");
+                name: "IX_MaterialIssuees_MaterialIssueedToUserId",
+                table: "MaterialIssuees",
+                newName: "IX_MaterialIssuees_MaterialIssueedToId");
 
             migrationBuilder.AddColumn<int>(
                 name: "OrderedbyId",
@@ -147,9 +147,9 @@ namespace InventoryManagement.Migrations
                 column: "OrderedbyId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Dispatches_Users_DispatchedToId",
-                table: "Dispatches",
-                column: "DispatchedToId",
+                name: "FK_MaterialIssuees_Users_MaterialIssueedToId",
+                table: "MaterialIssuees",
+                column: "MaterialIssueedToId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);

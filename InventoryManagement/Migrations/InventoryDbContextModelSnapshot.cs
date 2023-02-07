@@ -70,17 +70,17 @@ namespace InventoryManagement.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("InventoryManagement.Models.Dispatch", b =>
+            modelBuilder.Entity("InventoryManagement.Models.MaterialIssue", b =>
                 {
-                    b.Property<int>("DispatchId")
+                    b.Property<int>("MaterialIssueId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DispatchDate")
+                    b.Property<DateTime>("MaterialIssueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DispatchedToUserId")
+                    b.Property<int?>("MaterialIssueedToUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("MaterialId")
@@ -92,11 +92,11 @@ namespace InventoryManagement.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("DispatchId");
+                    b.HasKey("MaterialIssueId");
 
-                    b.HasIndex("DispatchedToUserId");
+                    b.HasIndex("MaterialIssueedToUserId");
 
-                    b.ToTable("Dispatches");
+                    b.ToTable("MaterialIssuees");
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.Hsd", b =>
@@ -310,13 +310,13 @@ namespace InventoryManagement.Migrations
                     b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("InventoryManagement.Models.Dispatch", b =>
+            modelBuilder.Entity("InventoryManagement.Models.MaterialIssue", b =>
                 {
-                    b.HasOne("InventoryManagement.Models.User", "DispatchedTo")
+                    b.HasOne("InventoryManagement.Models.User", "MaterialIssueedTo")
                         .WithMany()
-                        .HasForeignKey("DispatchedToUserId");
+                        .HasForeignKey("MaterialIssueedToUserId");
 
-                    b.Navigation("DispatchedTo");
+                    b.Navigation("MaterialIssueedTo");
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.Material", b =>

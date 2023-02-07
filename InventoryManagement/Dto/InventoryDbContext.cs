@@ -15,7 +15,7 @@ namespace InventoryManagement.Dto
         public DbSet<Category> Categories { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Dispatch> Dispatches { get; set; }
+        public DbSet<MaterialIssue> MaterialIssuees { get; set; }
         public DbSet<Return> Returns { get; set; }
         public DbSet<AddInventory> AddInventories { get; set; }
         public DbSet<HsdIndent> HsdIndents { get; set; }
