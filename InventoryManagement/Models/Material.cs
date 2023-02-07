@@ -2,11 +2,11 @@
 
 namespace InventoryManagement.Models
 {
-    public class Product
+    public class Material
     {
         [Key]
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public int MaterialId { get; set; }
+        public string MaterialName { get; set; }
         public double Price { get; set; } = 0;
         public int Quantity { get; set; } = 0;
         public int CategoryId { get; set; }

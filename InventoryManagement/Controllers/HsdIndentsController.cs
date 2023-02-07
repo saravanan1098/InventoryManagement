@@ -12,48 +12,47 @@ namespace InventoryManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class HsdIndentsController : ControllerBase
     {
         private readonly InventoryDbContext _context;
-
-        public ProductsController(InventoryDbContext context)
+        public HsdIndentsController(InventoryDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/HsdIndents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<HsdIndent>>> GetHsdIndents()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.HsdIndents.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/HsdIndents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<HsdIndent>> GetHsdIndent(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var hsdIndent = await _context.HsdIndents.FindAsync(id);
 
-            if (product == null)
+            if (hsdIndent == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return hsdIndent;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/HsdIndents/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutHsdIndent(int id, HsdIndent hsdIndent)
         {
-            if (id != product.ProductId)
+            if (id != hsdIndent.IndentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(hsdIndent).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +60,7 @@ namespace InventoryManagement.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!HsdIndentExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +73,38 @@ namespace InventoryManagement.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/HsdIndents
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<HsdIndent>> PostHsdIndent(HsdIndent hsdIndent)
         {
-            _context.Products.Add(product);
+            await _context.Hsds.ForEachAsync(h => h.TotalQuantity += hsdIndent.Quantity);
+            _context.HsdIndents.Add(hsdIndent);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return CreatedAtAction("GetHsdIndent", new { id = hsdIndent.IndentId }, hsdIndent);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/HsdIndents/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<HsdIndent>> DeleteHsdIndent(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var hsdIndent = await _context.HsdIndents.FindAsync(id);
+            if (hsdIndent == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.HsdIndents.Remove(hsdIndent);
             await _context.SaveChangesAsync();
 
-            return product;
+            return hsdIndent;
         }
 
-        private bool ProductExists(int id)
+        private bool HsdIndentExists(int id)
         {
-            return _context.Products.Any(e => e.ProductId == id);
+            return _context.HsdIndents.Any(e => e.IndentId == id);
         }
     }
 }

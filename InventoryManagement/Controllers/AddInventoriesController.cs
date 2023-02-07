@@ -52,11 +52,11 @@ namespace InventoryManagement.Controllers
             {
                 return BadRequest();
             }
-            AddInventory oldAddInventory = await  _context.AddInventories.Where(x => x.ProductId == addInventory.ProductId).FirstOrDefaultAsync();
-            Product product = await _context.Products.Where(x => x.ProductId == addInventory.ProductId).FirstOrDefaultAsync();
-            product.Quantity += addInventory.Quantity - oldAddInventory.Quantity;
-            product.Price = addInventory.Price;
-            _context.Products.Update(product);
+            AddInventory oldAddInventory = await  _context.AddInventories.Where(x => x.MaterialId == addInventory.MaterialId).FirstOrDefaultAsync();
+            Material Material = await _context.Materials.Where(x => x.MaterialId == addInventory.MaterialId).FirstOrDefaultAsync();
+            Material.Quantity += addInventory.Quantity - oldAddInventory.Quantity;
+            Material.Price = addInventory.Price;
+            _context.Materials.Update(Material);
             _context.Entry(addInventory).State = EntityState.Modified;
 
             try
@@ -85,10 +85,10 @@ namespace InventoryManagement.Controllers
         public async Task<ActionResult<AddInventory>> PostAddInventory(AddInventory addInventory)
         {
             _context.AddInventories.Add(addInventory);
-            Product product = await _context.Products.Where(x => x.ProductId == addInventory.ProductId).FirstOrDefaultAsync();
-            product.Quantity += addInventory.Quantity;
-            product.Price = addInventory.Price;
-            _context.Products.Update(product);
+            Material Material = await _context.Materials.Where(x => x.MaterialId == addInventory.MaterialId).FirstOrDefaultAsync();
+            Material.Quantity += addInventory.Quantity;
+            Material.Price = addInventory.Price;
+            _context.Materials.Update(Material);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAddInventory", new { id = addInventory.AddInventoryId }, addInventory);
@@ -106,9 +106,9 @@ namespace InventoryManagement.Controllers
 
             _context.AddInventories.Remove(addInventory);
             _context.AddInventories.Add(addInventory);
-            Product product = await _context.Products.Where(x => x.ProductId == addInventory.ProductId).FirstOrDefaultAsync();
-            product.Quantity -= addInventory.Quantity;
-            _context.Products.Update(product);
+            Material Material = await _context.Materials.Where(x => x.MaterialId == addInventory.MaterialId).FirstOrDefaultAsync();
+            Material.Quantity -= addInventory.Quantity;
+            _context.Materials.Update(Material);
             await _context.SaveChangesAsync();
 
             return addInventory;

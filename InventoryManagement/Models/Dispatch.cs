@@ -6,8 +6,8 @@ namespace InventoryManagement.Models
     {
         public int DispatchId { get; set; }
         public DateTime DispatchDate { get; set; } = DateTime.Now;
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public int MaterialId { get; set; }
+        public string MaterialName { get; set; }
         public int Quantity { get; set; }
         public User DispatchedTo { get; set; }
     }

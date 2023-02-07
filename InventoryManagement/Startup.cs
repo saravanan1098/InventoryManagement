@@ -1,4 +1,5 @@
 using InventoryManagement.Dto;
+using InventoryManagement.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,6 @@ namespace InventoryManagement
         {
             services.AddControllers();
             services.AddDbContext<InventoryDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {

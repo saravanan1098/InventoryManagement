@@ -4,19 +4,21 @@ using InventoryManagement.Dto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230207143430_inventory15")]
+    partial class inventory15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
+                .HasAnnotation("MaterialVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("InventoryManagement.Models.AddInventory", b =>
@@ -35,14 +37,14 @@ namespace InventoryManagement.Migrations
                     b.Property<string>("InvoiceNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<string>("MaterialName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<string>("PurchaseOrderNumber")
                         .HasColumnType("nvarchar(max)");
@@ -80,7 +82,7 @@ namespace InventoryManagement.Migrations
                     b.Property<DateTime>("DispatchDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DispatchedToUserId")
+                    b.Property<int?>("DispatchedToId")
                         .HasColumnType("int");
 
                     b.Property<int>("MaterialId")
@@ -94,7 +96,7 @@ namespace InventoryManagement.Migrations
 
                     b.HasKey("DispatchId");
 
-                    b.HasIndex("DispatchedToUserId");
+                    b.HasIndex("DispatchedToId");
 
                     b.ToTable("Dispatches");
                 });
@@ -130,6 +132,9 @@ namespace InventoryManagement.Migrations
                     b.Property<int>("IndentNumber")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrderedbyId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -139,10 +144,9 @@ namespace InventoryManagement.Migrations
                     b.Property<string>("SupplierName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("IndentId");
+
+                    b.HasIndex("OrderedbyId");
 
                     b.ToTable("HsdIndents");
                 });
@@ -157,11 +161,11 @@ namespace InventoryManagement.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MaterialName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
+
+                    b.Property<string>("MaterialName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -180,9 +184,6 @@ namespace InventoryManagement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PoDate")
                         .HasColumnType("datetime2");
 
@@ -191,6 +192,9 @@ namespace InventoryManagement.Migrations
 
                     b.Property<string>("PoType")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -222,19 +226,19 @@ namespace InventoryManagement.Migrations
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ReturnedbyUserId")
+                    b.Property<int?>("ReturnedbyId")
                         .HasColumnType("int");
 
                     b.HasKey("ReturnId");
 
-                    b.HasIndex("ReturnedbyUserId");
+                    b.HasIndex("ReturnedbyId");
 
                     b.ToTable("Returns");
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -272,51 +276,27 @@ namespace InventoryManagement.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("InventoryManagement.Models.Vendor", b =>
-                {
-                    b.Property<int>("VendorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BankAccountNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BankIfscNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BankName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BenBeneficiaryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VendorBillingAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VendorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VendorShippingAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VendorId");
-
-                    b.ToTable("Vendors");
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.Dispatch", b =>
                 {
                     b.HasOne("InventoryManagement.Models.User", "DispatchedTo")
                         .WithMany()
-                        .HasForeignKey("DispatchedToUserId");
+                        .HasForeignKey("DispatchedToId");
 
                     b.Navigation("DispatchedTo");
+                });
+
+            modelBuilder.Entity("InventoryManagement.Models.HsdIndent", b =>
+                {
+                    b.HasOne("InventoryManagement.Models.User", "Orderedby")
+                        .WithMany()
+                        .HasForeignKey("OrderedbyId");
+
+                    b.Navigation("Orderedby");
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.Material", b =>
@@ -332,7 +312,7 @@ namespace InventoryManagement.Migrations
                 {
                     b.HasOne("InventoryManagement.Models.User", "Returnedby")
                         .WithMany()
-                        .HasForeignKey("ReturnedbyUserId");
+                        .HasForeignKey("ReturnedbyId");
 
                     b.Navigation("Returnedby");
                 });

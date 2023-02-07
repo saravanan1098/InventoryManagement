@@ -8,7 +8,7 @@ namespace InventoryManagement.Models
         [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public List<Product> Products { get; set; }
+        public List<Material> Materials { get; set; }
 
     }
 }
